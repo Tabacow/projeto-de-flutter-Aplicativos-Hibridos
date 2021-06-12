@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../select/select.dart';
+import '../../resources/pokemons.dart';
 
 /// This is the stateful widget that the main application instantiates.
 class CreateGroupForm extends StatefulWidget {
@@ -15,9 +16,7 @@ class _CreateGroupForm extends State<CreateGroupForm> {
 
   final nomeRaidController = TextEditingController();
   final descricaoController = TextEditingController();
-  final selectValue = new ValueNotifier("Pikachu");
-
-  final legendaryList = ['Mewtwo', 'Pikachu', 'Arceus', 'Regigigas'];
+  final selectValue = new ValueNotifier("Mewtwo");
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +58,7 @@ class _CreateGroupForm extends State<CreateGroupForm> {
                   ValueListenableBuilder(
                       valueListenable: selectValue,
                       builder: (context, value, child) {
-                        return Select(selectValue: value,options: legendaryList, valueNotifier: selectValue);
+                        return Select(selectValue: value,options: Pokemons.legendaries, valueNotifier: selectValue);
                       }
                   ),
                   Column(

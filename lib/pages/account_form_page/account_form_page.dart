@@ -7,11 +7,11 @@ class AccountFormPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => {},
-          tooltip: 'Logout',
-          child: const Icon(Icons.logout),
-        ),
+        // floatingActionButton: FloatingActionButton(
+        //   onPressed: () => {},
+        //   tooltip: 'Logout',
+        //   child: const Icon(Icons.logout),
+        // ),
         body: AccountForm()
     );
   }

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
 class GroupList extends StatelessWidget {
-  final List<String> entries = <String>['A', 'B', 'C'];
-  final List<int> colorCodes = <int>[600, 500, 100];
+
+  final participants;
+
+  const GroupList({Key? key, required this.participants}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -11,15 +14,15 @@ class GroupList extends StatelessWidget {
           Divider(
             color: Colors.black,
           ),
-      itemCount: 4,
+      itemCount: participants.length,
       itemBuilder: (context, index) =>
           Padding(
             padding: EdgeInsets.all(8.0),
             child: Row(
                 children: [
-                  Text("Usuario $index"),
+                  Text(participants[index]["name"]),
                   Spacer(),
-                  ElevatedButton(onPressed: ()=> {}, child: Text("Excluir"))
+                  Text(participants[index]["friendCode"])
                 ],
             ),
           ),

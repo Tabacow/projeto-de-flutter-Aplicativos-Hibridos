@@ -29,10 +29,10 @@ class _Select extends State<Select> {
         widget.valueNotifier.value = newValue;
       },
       items: widget.options
-          .map<DropdownMenuItem<String>>((String value) {
+          .map<DropdownMenuItem<String>>((value) {
         return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
+          value: value["name"],
+          child: Text(value["name"]),
         );
       }).toList(),
     );
