@@ -1,15 +1,21 @@
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 import '../resources/enviroment_urls.dart';
 
 class PokemonService {
   static Future getPokemonById (id) async {
-    var url = Uri.parse(EnviromentURLs.baseUrl + EnviromentURLs.pokemonUrl + "/" + id);
-    var res = await http.get(url);
-    return res;
+    try {
+      var res = await Dio().get(EnviromentURLs.baseUrl + EnviromentURLs.pokemonUrl + "/" + id);
+      return res;
+    } catch (e) {
+      print(e);
+    }
   }
   static Future getAllPokemons () async {
-    var url = Uri.parse(EnviromentURLs.baseUrl + EnviromentURLs.pokemonUrl);
-    var res = await http.get(url);
-    return res;
+    try {
+      var res = await Dio().get(EnviromentURLs.baseUrl + EnviromentURLs.pokemonUrl);
+          return res;
+      } catch (e) {
+        print(e);
+    }
   }
 }

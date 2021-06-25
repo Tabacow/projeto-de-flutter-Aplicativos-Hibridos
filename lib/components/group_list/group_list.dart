@@ -12,17 +12,23 @@ class GroupList extends StatefulWidget {
 }
 
 class _GroupListState extends State<GroupList> {
+  final repository = GroupService();
+  
   var participants;
 
   @override
   void initState() {
     super.initState();
+    
     getData();
-    setState(() {});
   }
 
   Future<void> getData () async {
     var participants = await GroupService.getGroupList();
+    
+    setState(() {});
+    print(participants);
+    
   }
 
   @override
@@ -46,4 +52,5 @@ class _GroupListState extends State<GroupList> {
           ),
     );
   }
+  
 }

@@ -19,11 +19,11 @@ class _PokeListState extends State<PokeList> {
   void initState() {
     super.initState();
     getData();
-    setState(() {});
   }
 
   Future<void> getData () async {
     pokeListArray = await GroupService.getGroupList();
+    setState(() {});
   }
 
   @override
