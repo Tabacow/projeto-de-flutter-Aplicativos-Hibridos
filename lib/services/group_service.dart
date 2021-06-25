@@ -2,7 +2,7 @@ import 'package:http/http.dart' as http;
 import '../resources/enviroment_urls.dart';
 class GroupService {
   static Future getGroupList () async {
-    var url = Uri.parse(EnviromentURLs.baseUrl + EnviromentURLs.groupUrl + id);
+    var url = Uri.parse(EnviromentURLs.baseUrl + EnviromentURLs.groupUrl);
     var res = await http.get(url);
     return res;
   }
