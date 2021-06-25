@@ -28,7 +28,8 @@ class _PokeListState extends State<PokeList> {
 
   @override
   Widget build(BuildContext context) {
-    return  pokeListArray.length > 0
+    if (pokeListArray != null) {
+      return  pokeListArray.length > 0
           ? ListView.builder(
         shrinkWrap: true,
         padding: const EdgeInsets.all(20.0),
@@ -37,7 +38,10 @@ class _PokeListState extends State<PokeList> {
           return PokeCard(cardInfo: pokeListArray[index]);
         },
       )
-        : const Center(child: Text('No rooms available')
-    );
+          : const Center(child: Text('No rooms available')
+      );
+    } else {
+      return Text("Loading...");
+    }
   }
 }
