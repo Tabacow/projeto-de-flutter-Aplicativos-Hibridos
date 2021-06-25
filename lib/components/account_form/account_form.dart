@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AccountForm extends StatefulWidget {
   const AccountForm({Key? key}) : super(key: key);
@@ -10,8 +11,44 @@ class AccountForm extends StatefulWidget {
 class _AccountForm extends State<AccountForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  final nomeController = TextEditingController();
-  final fcController = TextEditingController();
+  var nomeController = TextEditingController();
+  var fcController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    loadData();
+  }
+
+  Future<void> loadData () async {
+    nomeController.text = await _getNomeFromSharedPref();
+    fcController.text = await _getFCFromSharedPref();
+    setState((){
+    });
+  }
+
+  Future<String> _getNomeFromSharedPref() async {
+    final prefs = await SharedPreferences.getInstance();
+    final getNome = prefs.getString("nome");
+    if (getNome == null){
+      return "";
+    }
+    return getNome;
+  }
+  Future<String> _getFCFromSharedPref() async {
+    final prefs = await SharedPreferences.getInstance();
+    final getFC = prefs.getString("friendCode");
+    if (getFC == null){
+      return "";
+    }
+    return getFC;
+  }
+
+  void setValuesOnPref() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString("nome", nomeController.text);
+    prefs.setString("friendCode", fcController.text);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,11 +91,8 @@ class _AccountForm extends State<AccountForm> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [ElevatedButton(
                     onPressed: () {
-                      // Validate will return true if the form is valid, or false if
-                      // the form is invalid.
                       if (_formKey.currentState!.validate()) {
-                        print(nomeController.text);
-                        print(fcController.text);
+                        setValuesOnPref();
                       }
                     },
                     child: const Text('Submit'),

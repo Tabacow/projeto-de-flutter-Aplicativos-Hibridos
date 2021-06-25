@@ -55,6 +55,54 @@ class PokeListArray {
       ],
       "id" : "AB12CD78"
     },
+    {
+      "title": "Raid do Rondo",
+      "type": "383",
+      "description" : "Cola ai",
+      "participants" : [
+        {
+          "name" : "Cristino",
+          "friendCode" : "4"
+        },
+        {
+          "name" : "",
+          "friendCode" : "5"
+        },
+        {
+          "name" : "",
+          "friendCode" : "6"
+        },
+        {
+          "name" : "??",
+          "friendCode" : "7"
+        },
+      ],
+      "id" : "AB12CD78"
+    },
+    {
+      "title": "Raid da Sirene",
+      "type": "383",
+      "description" : "Cola ai",
+      "participants" : [
+        {
+          "name" : "Ronaldinho",
+          "friendCode" : "4"
+        },
+        {
+          "name" : "R10",
+          "friendCode" : "5"
+        },
+        {
+          "name" : "Hector",
+          "friendCode" : "6"
+        },
+        {
+          "name" : "Flutter",
+          "friendCode" : "7"
+        },
+      ],
+      "id" : "AB12CD78"
+    },
   ];
 }
 
