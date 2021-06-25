@@ -12,7 +12,7 @@ class GroupPage extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.fromLTRB(8.0,28.0,8.0,8.0),
         child: Card(
-          child: GroupList(participants: participants),
+          child: GroupList(),
         ),
       ),
       floatingActionButton: FloatingActionButton(

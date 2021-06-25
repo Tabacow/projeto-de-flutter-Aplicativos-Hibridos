@@ -1,15 +1,30 @@
 
 import 'package:flutter/material.dart';
 import 'package:ultimate_raid_finderzz_app/pages/group_page/group_page.dart';
-import '../../resources/pokemons.dart';
+import '../../services/pokemon_service.dart';
 
-class PokeCard extends StatelessWidget {
+class PokeCard extends StatefulWidget {
   final cardInfo;
   const PokeCard({Key? key, required this.cardInfo}) : super(key: key);
 
-  caralho() {
-    var pokemon = Pokemons.legendaries.where((element) => element["pokeId"].toString() == cardInfo["type"]);
-    return pokemon.first["name"];
+  @override
+  _PokeCardState createState() => _PokeCardState();
+}
+
+class _PokeCardState extends State<PokeCard> {
+
+  var pokemon;
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+    setState(() {});
+  }
+
+
+  Future<void> getData () async {
+    pokemon = await PokemonService.getPokemonById(widget.cardInfo["type"]);
   }
 
   @override
@@ -21,7 +36,7 @@ class PokeCard extends StatelessWidget {
             onTap: () {
                Navigator.push(
                  context,
-                 MaterialPageRoute(builder: (context) => GroupPage(participants: cardInfo["participants"])),
+                 MaterialPageRoute(builder: (context) => GroupPage(participants: widget.cardInfo["participants"])),
                );
 
             },
@@ -31,15 +46,15 @@ class PokeCard extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   ListTile(
-                    leading: Image.network("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+ cardInfo["type"] +".png"),
-                    title: Text(cardInfo["title"]),
-                    subtitle: Text(caralho()),
+                    leading: Image.network("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+ widget.cardInfo["type"] +".png"),
+                    title: Text(widget.cardInfo["title"]),
+                    subtitle: Text(pokemon.name),
                   ),
                   Row(
                     children: <Widget>[
-                      Text(cardInfo["description"]),
+                      Text(widget.cardInfo["description"]),
                       Spacer(),
-                      Text(cardInfo["participants"].length.toString()+"/4")
+                      Text(widget.cardInfo["participants"].length.toString()+"/4")
                     ],
                   )
                 ],

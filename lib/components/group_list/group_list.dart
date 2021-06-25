@@ -1,11 +1,29 @@
 import 'package:flutter/material.dart';
+import '../../services/group_service.dart';
 
-class GroupList extends StatelessWidget {
+class GroupList extends StatefulWidget {
 
-  final participants;
 
-  const GroupList({Key? key, required this.participants}) : super(key: key);
 
+  const GroupList({Key? key}) : super(key: key);
+
+  @override
+  _GroupListState createState() => _GroupListState();
+}
+
+class _GroupListState extends State<GroupList> {
+  var participants;
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+    setState(() {});
+  }
+
+  Future<void> getData () async {
+    var participants = await GroupService.getGroupList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,5 +46,4 @@ class GroupList extends StatelessWidget {
           ),
     );
   }
-
 }
