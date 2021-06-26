@@ -1,23 +1,28 @@
 import 'package:flutter/material.dart';
 import '../select/select.dart';
 import '../../services/pokemon_service.dart';
+import '../../services/group_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-/// This is the stateful widget that the main application instantiates.
+
 class CreateGroupForm extends StatefulWidget {
   const CreateGroupForm({Key? key}) : super(key: key);
+
+  // Essa componente serve para criar um CreateGroupForm
 
   @override
   State<CreateGroupForm> createState() => _CreateGroupForm();
 }
 
-/// This is the private State class that goes with MyStatefulWidget.
 class _CreateGroupForm extends State<CreateGroupForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final nomeRaidController = TextEditingController();
   final descricaoController = TextEditingController();
-  final selectValue = new ValueNotifier("");
-  var pokeOptions = [""];
+  final selectValue = new ValueNotifier(""); // ValueNotifier passado para a componente Select
+  var pokeOptions = [""]; // Lista de pokemons passado para a componente Select
+  var name;
+  var friendCode;
 
   @override
   void initState() {
@@ -26,10 +31,32 @@ class _CreateGroupForm extends State<CreateGroupForm> {
     setState(() {});
   }
 
+  Future<void> createGroup() async {
+    name = await _getNomeFromSharedPref();
+    friendCode = await _getFCFromSharedPref();
+    GroupService.createGroup(friendCode);
+  }
+
   Future<void> getData() async {
     pokeOptions = pokeOptions + await PokemonService.getAllPokemons();
   }
 
+  Future<String> _getNomeFromSharedPref() async {
+    final prefs = await SharedPreferences.getInstance();
+    final getNome = prefs.getString("nome");
+    if (getNome == null){
+      return "";
+    }
+    return getNome;
+  }
+  Future<String> _getFCFromSharedPref() async {
+    final prefs = await SharedPreferences.getInstance();
+    final getFC = prefs.getString("friendCode");
+    if (getFC == null){
+      return "";
+    }
+    return getFC;
+  }
 
   @override
   Widget build(BuildContext context) {

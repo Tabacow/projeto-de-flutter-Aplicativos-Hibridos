@@ -4,6 +4,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AccountForm extends StatefulWidget {
   const AccountForm({Key? key}) : super(key: key);
 
+  // Essa componente salva o nome e friendCode do usuario por SharedPreferences
+
   @override
   State<AccountForm> createState() => _AccountForm();
 }

@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+
+// Esta componente aceita como entrada:
+//  - selectValue: é o value passado pelo valueNotifier
+//  - options: é um array de opções
+//  - valueNotifier: é um valueNotifier
+
 class Select extends StatefulWidget {
 
   final options;
