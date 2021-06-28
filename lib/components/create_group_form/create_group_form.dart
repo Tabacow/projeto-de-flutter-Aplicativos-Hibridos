@@ -1,7 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:ultimate_raid_finderzz_app/components/models/Pokemon.dart';
+import 'package:ultimate_raid_finderzz_app/components/poke_list/poke_list.dart';
+import 'package:ultimate_raid_finderzz_app/pages/main_page/main_page.dart';
+import 'package:ultimate_raid_finderzz_app/services/group_service.dart';
 import '../select/select.dart';
 import '../../services/pokemon_service.dart';
-
 /// This is the stateful widget that the main application instantiates.
 class CreateGroupForm extends StatefulWidget {
   const CreateGroupForm({Key? key}) : super(key: key);
@@ -17,81 +23,73 @@ class _CreateGroupForm extends State<CreateGroupForm> {
   final nomeRaidController = TextEditingController();
   final descricaoController = TextEditingController();
   final selectValue = new ValueNotifier("");
-  var pokeOptions = [""];
-
+  final groupService = new GroupService();
+  var pokeListArray;
+  var hostFC;
+  var pokeOptions;
   @override
   void initState() {
     super.initState();
+    _getFCFromSharedPref();
     getData();
     setState(() {});
   }
 
-  Future<void> getData() async {
-    pokeOptions = pokeOptions + await PokemonService.getAllPokemons();
+  Future<void> _getFCFromSharedPref() async {
+    final prefs = await SharedPreferences.getInstance();
+    final getFC = prefs.getString("friendCode");
+    if (getFC == null){
+      this.hostFC=1;
+    }
+    this.hostFC=getFC;
   }
+  
+  Future getData() async {
+    var pokeOptions = [];
+    pokeListArray = await PokemonService.getAllPokemons();
+    //print(pokeListArray.body);
+    var jsonData = jsonDecode(pokeListArray.body);
+    for (var pokemon in jsonData) {
+      pokeOptions.add(Pokemon(pokemon["number"],pokemon["name"],pokemon["type1"],pokemon["type2"]));
+    }
 
+    this.pokeOptions = pokeOptions;
+    return pokeOptions;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-
-                children: [
-                  TextFormField(
-                    controller: nomeRaidController,
-                    decoration: const InputDecoration(
-                      hintText: 'Nome da Raid',
-                    ),
-                    validator: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                      return null;
-                    },
-                  ),
-                  TextFormField(
-                    controller: descricaoController,
-                    decoration: const InputDecoration(
-                      hintText: 'Descrição',
-                    ),
-                    validator: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                      return null;
-                    },
-                  ),
-                  ValueListenableBuilder(
-                      valueListenable: selectValue,
-                      builder: (context, value, child) {
-                        return Select(selectValue: value,options: pokeOptions, valueNotifier: selectValue);
-                      }
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [ElevatedButton(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          print(selectValue);
-                          print(nomeRaidController.text);
-                          print(descricaoController.text);
-                        }
-                      },
-                      child: const Text('Submit'),
-                    )],
-                  ),
-                ],
-              )
-          )
-
-        ],
+    return Scaffold(
+      appBar: AppBar(title: Text("Selecione o pokemon que você deseja abrir raid")),
+      body: Container(
+        child: Card(
+          child: FutureBuilder(
+              future: getData(),
+              builder: (context, snapshot) {
+                if (snapshot.data != null) {
+                  final list = snapshot.data as List;
+                  return ListView.builder(
+                      itemCount: list.length,
+                      shrinkWrap: true,
+                      itemBuilder: (_, index) {
+                        return ListTile(
+                          leading: Image.network("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+list[index].pokeNumber.toString()+".png"),
+                          title: Text(list[index].pokeName),
+                          onTap: (){
+                            print(int.parse(this.hostFC));
+                            groupService.createRaid(int.parse(this.hostFC), list[index].pokeNumber );
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => MainPage()),
+                            );
+                          },
+                        );
+                      });
+                } else {
+                  return Text("Carregando...");
+                }
+              }),
+        ),
       ),
     );
   }

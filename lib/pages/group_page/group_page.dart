@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:ultimate_raid_finderzz_app/components/group_list/group_list.dart';
 
 class GroupPage extends StatelessWidget {
-  final participants;
+  
 
-  const GroupPage({Key? key, required this.participants}) : super(key: key);
+  GroupPage();
 
   @override
   Widget build(BuildContext context) {

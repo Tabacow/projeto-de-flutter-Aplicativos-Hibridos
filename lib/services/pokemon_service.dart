@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import '../resources/enviroment_urls.dart';
 
@@ -12,4 +14,5 @@ class PokemonService {
     var res = await http.get(url);
     return res;
   }
+  
 }

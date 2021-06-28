@@ -1,5 +1,5 @@
 class EnviromentURLs {
-  static const baseUrl = "http://localhost:8081";
-  static const groupUrl = "/raid";
-  static const pokemonUrl = "/pokemon";
+  static const baseUrl = "http://localhost:8765";
+  static const groupUrl = "/poke-raid/raid/";
+  static const pokemonUrl = "/poke-pokemon/pokemon/";
 }
