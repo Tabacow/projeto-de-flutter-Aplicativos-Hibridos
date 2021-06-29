@@ -14,7 +14,8 @@ class GroupService {
     return res;
   }
   static Future getRaid(id) async {
-    var url = Uri.parse(EnviromentURLs.baseUrl + EnviromentURLs.groupUrl + id);
+    var url = Uri.parse(EnviromentURLs.baseUrl + EnviromentURLs.groupUrl  + id.toString());
+    print(url);
     var res = await http.get(url);
     return res;
   }
