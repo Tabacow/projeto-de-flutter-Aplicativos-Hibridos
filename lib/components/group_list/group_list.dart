@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../services/group_service.dart';
+import './group_list_controller.dart';
 
 class GroupList extends StatefulWidget {
-
-
 
   const GroupList({Key? key}) : super(key: key);
 
@@ -12,18 +10,18 @@ class GroupList extends StatefulWidget {
 }
 
 class _GroupListState extends State<GroupList> {
+
   var participants;
+  final groupListController = new GroupListController();
 
   @override
   void initState() {
     super.initState();
-    getData();
+    participants = groupListController.getData();
     setState(() {});
   }
 
-  Future<void> getData () async {
-    var participants = await GroupService.getGroupList();
-  }
+
 
   @override
   Widget build(BuildContext context) {

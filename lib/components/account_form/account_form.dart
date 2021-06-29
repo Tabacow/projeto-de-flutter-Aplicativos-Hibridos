@@ -1,5 +1,7 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:ultimate_raid_finderzz_app/components/account_form/account_form_controller.dart';
 
 class AccountForm extends StatefulWidget {
   const AccountForm({Key? key}) : super(key: key);
@@ -13,41 +15,18 @@ class _AccountForm extends State<AccountForm> {
 
   var nomeController = TextEditingController();
   var fcController = TextEditingController();
+  final accountFormController = new AccountFormPageController();
 
   @override
   void initState() {
     super.initState();
-    loadData();
+    setData();
+    setState((){});
   }
 
-  Future<void> loadData () async {
-    nomeController.text = await _getNomeFromSharedPref();
-    fcController.text = await _getFCFromSharedPref();
-    setState((){
-    });
-  }
-
-  Future<String> _getNomeFromSharedPref() async {
-    final prefs = await SharedPreferences.getInstance();
-    final getNome = prefs.getString("nome");
-    if (getNome == null){
-      return "";
-    }
-    return getNome;
-  }
-  Future<String> _getFCFromSharedPref() async {
-    final prefs = await SharedPreferences.getInstance();
-    final getFC = prefs.getString("friendCode");
-    if (getFC == null){
-      return "";
-    }
-    return getFC;
-  }
-
-  void setValuesOnPref() async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setString("nome", nomeController.text);
-    prefs.setString("friendCode", fcController.text);
+  Future<void> setData() async {
+    fcController.text = await accountFormController.loadFcData();
+    nomeController.text = await accountFormController.loadNomeData();
   }
 
   @override
@@ -92,7 +71,7 @@ class _AccountForm extends State<AccountForm> {
                   children: [ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        setValuesOnPref();
+                        accountFormController.setValuesOnPref(nomeController.text, fcController.text);
                       }
                     },
                     child: const Text('Submit'),
