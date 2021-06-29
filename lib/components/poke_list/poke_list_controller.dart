@@ -8,7 +8,7 @@ class PokeListController {
     final prefs = await SharedPreferences.getInstance();
     final getFC = prefs.getString("friendCode");
     if (getFC == null){
-      return 1;
+      return "";
     }
     return getFC;
   }

@@ -26,6 +26,8 @@ class _CreateGroupForm extends State<CreateGroupForm> {
     super.initState();
     this.hostFC = createGroupController.getFCFromSharedPref();
     this.pokeOptions = createGroupController.getData();
+    print(this.pokeOptions);
+    print(this.hostFC);
     setState(() {});
   }
 

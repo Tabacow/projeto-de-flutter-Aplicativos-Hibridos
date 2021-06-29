@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import '../../models/Raid.dart';
 import 'package:ultimate_raid_finderzz_app/pages/group_page/group_page.dart';
 import 'package:ultimate_raid_finderzz_app/services/group_service.dart';
 import 'pode_card_controller.dart';
@@ -20,10 +19,12 @@ class PokeCard extends StatelessWidget{
           child: InkWell(
             splashColor: Colors.blue.withAlpha(30),
            onTap: () {
-              print(this.myGuestFC);
-                GroupService.joinRaid(raidInfo.id, this.myGuestFC);
-               
-
+                GroupService.joinRaid(raidInfo.id, this.myGuestFC).then((res) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => GroupPage(raidInfo.id)),
+                  );
+                });
             },
             child: Padding(
               padding: const EdgeInsets.all(8.0),

@@ -3,7 +3,8 @@ import './group_list_controller.dart';
 
 class GroupList extends StatefulWidget {
 
-  const GroupList({Key? key}) : super(key: key);
+  final raidId;
+  const GroupList({Key? key, required this.raidId}) : super(key: key);
 
   @override
   _GroupListState createState() => _GroupListState();
@@ -17,6 +18,7 @@ class _GroupListState extends State<GroupList> {
   @override
   void initState() {
     super.initState();
+  print(widget.raidId);
     participants = groupListController.getData();
     setState(() {});
   }
@@ -25,6 +27,7 @@ class _GroupListState extends State<GroupList> {
 
   @override
   Widget build(BuildContext context) {
+
     return ListView.separated(
       separatorBuilder: (context, index) =>
           Divider(

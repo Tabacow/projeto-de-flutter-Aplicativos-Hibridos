@@ -22,3 +22,4 @@ class PokeListPage extends StatelessWidget {
     );
   }
 }
+

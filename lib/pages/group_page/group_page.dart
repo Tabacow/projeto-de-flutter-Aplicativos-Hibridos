@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:ultimate_raid_finderzz_app/components/group_list/group_list.dart';
 
 class GroupPage extends StatelessWidget {
-  
 
-  GroupPage();
+  var raidId;
+
+  GroupPage(this.raidId);
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +13,7 @@ class GroupPage extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.fromLTRB(8.0,28.0,8.0,8.0),
         child: Card(
-          child: GroupList(),
+          child: GroupList(raidId:this.raidId),
         ),
       ),
       floatingActionButton: FloatingActionButton(
