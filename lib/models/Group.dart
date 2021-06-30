@@ -1,6 +1,6 @@
 class Group {
   var id;
-  var raidPokemon = new RaidPokemon();
+  var raidPokemon;
   var hostFC;
   var guestFC1;
   var guestFC2;

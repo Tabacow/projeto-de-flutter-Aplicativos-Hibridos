@@ -37,6 +37,7 @@ class _PokeListState extends State<PokeList> {
               future: pokeListController.getData(),
               builder: (context, snapshot) {
                 if (snapshot.data != null && this.myGuestFC.runtimeType == "String".runtimeType) {
+                  
                   final list = snapshot.data as List;
                   return ListView.builder(
                       itemCount: list.length,

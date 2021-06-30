@@ -9,11 +9,13 @@ class GroupService {
     var res = await http.get(url);
     return res;
   }
-  static Future createGroup(FC) async {
+  /*static Future createGroup(FC) async {
     var url = Uri.parse(EnviromentURLs.baseUrl + EnviromentURLs.groupUrl + FC);
+    
+    print(url);
     var res = await http.post(url, );
     return res;
-  }
+  }*/
    Future getRaid(id) async {
     var url = Uri.parse(EnviromentURLs.baseUrl + EnviromentURLs.groupUrl + id.toString());
     print(url);

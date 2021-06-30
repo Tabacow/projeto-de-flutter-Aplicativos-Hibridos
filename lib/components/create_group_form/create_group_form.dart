@@ -16,7 +16,7 @@ class CreateGroupForm extends StatefulWidget {
 class _CreateGroupForm extends State<CreateGroupForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  final groupService = new GroupService();
+
   final createGroupController = new CreateGroupController();
   var hostFC;
   var pokeOptions;
@@ -24,19 +24,19 @@ class _CreateGroupForm extends State<CreateGroupForm> {
   @override
   void initState() {
     super.initState();
-    this.hostFC = createGroupController.getFCFromSharedPref();
+    loadData();
     this.pokeOptions = createGroupController.getData();
-    print(this.pokeOptions);
-    print(this.hostFC);
     setState(() {});
   }
 
-
+  Future<void> loadData() async {
+    this.hostFC = await createGroupController.getFCFromSharedPref();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Selecione o pokemon que você deseja abrir raid")),
+      appBar: AppBar(title: Text("Selecione o pokemon que vocÃª deseja abrir raid")),
       body: Container(
         child: Card(
           child: FutureBuilder(
@@ -52,8 +52,9 @@ class _CreateGroupForm extends State<CreateGroupForm> {
                           leading: Image.network("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+list[index].pokeNumber.toString()+".png"),
                           title: Text(list[index].pokeName),
                           onTap: (){
-                            print(int.parse(this.hostFC));
-                            groupService.createRaid(int.parse(this.hostFC), list[index].pokeNumber );
+                            createGroupController.createRaid(this.hostFC, list[index].pokeNumber );
+                            Navigator.pop(context);
+                            Navigator.pop(context);
                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) => MainPage()),

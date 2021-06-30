@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:ultimate_raid_finderzz_app/components/poke_card/poke_card.dart';
 import './group_list_controller.dart';
@@ -21,7 +23,7 @@ class _GroupListState extends State<GroupList> {
     super.initState();
     groupListController.getFCFromSharedPref();
     participants = () async { await groupListController.getData(widget.raidId) as Group;};
-    setState(() {});
+    new Timer.periodic(const Duration(seconds: 25), (Timer t) => setState((){}));
   }
 
   @override
@@ -36,14 +38,14 @@ class _GroupListState extends State<GroupList> {
 
                 if (snapshot.data != null ) {
                   var group = snapshot.data as Group;
-                  //nome do pokemon, foto, 
+                  print("snapshot.data");
                   return Column(
                     children: [
                       Padding(
                         padding: EdgeInsets.all(8.0),
                         child: Row(
                           children: [
-                            Text(group.raidPokemon.number)
+                            Text(group.id.toString()),
                           ],
                         ),
                       ),
@@ -51,7 +53,7 @@ class _GroupListState extends State<GroupList> {
                         padding: EdgeInsets.all(8.0),
                         child: Row(
                           children: [
-                            Text(group.hostFC)
+                            Text(group.hostFC.toString())
                           ],
                         ),
                       ),
@@ -59,7 +61,7 @@ class _GroupListState extends State<GroupList> {
                         padding: EdgeInsets.all(8.0),
                         child: Row(
                           children: [
-                            Text(group.guestFC1)
+                            Text(group.guestFC1.toString())
                           ],
                         ),
                       ),
@@ -67,7 +69,7 @@ class _GroupListState extends State<GroupList> {
                         padding: EdgeInsets.all(8.0),
                         child: Row(
                           children: [
-                            Text(group.guestFC2)
+                            Text(group.guestFC2.toString())
                           ],
                         ),
                       ),
@@ -75,7 +77,7 @@ class _GroupListState extends State<GroupList> {
                         padding: EdgeInsets.all(8.0),
                         child: Row(
                           children: [
-                            Text(group.guestFC3)
+                            Text(group.guestFC3.toString())
                           ],
                         ),
                       ),
