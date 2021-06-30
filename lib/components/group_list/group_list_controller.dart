@@ -1,10 +1,11 @@
-import 'dart:convert';
-
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:ultimate_raid_finderzz_app/models/Group.dart';
 import '../../services/group_service.dart';
 
 class GroupListController {
+
+  var groupService = new GroupService();
+
   getFCFromSharedPref() async {
     final prefs = await SharedPreferences.getInstance();
     final getFC = prefs.getString("friendCode");
@@ -13,9 +14,9 @@ class GroupListController {
     }
     return getFC;
   }
-  getData(id) async {
-    var raid = await GroupService.getRaid(id);
+  Future getData(id) async {
+    var raid = await groupService.getRaid(id);
     print(raid.body);
-    return raid;
+    return raid.body as Group;
   }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:ultimate_raid_finderzz_app/components/poke_card/poke_card.dart';
 import './group_list_controller.dart';
+import '../../models/Group.dart';
 
 class GroupList extends StatefulWidget {
   final raidId;
@@ -18,7 +20,7 @@ class _GroupListState extends State<GroupList> {
   void initState() {
     super.initState();
     groupListController.getFCFromSharedPref();
-    participants = groupListController.getData(widget.raidId);
+    participants = () async { await groupListController.getData(widget.raidId) as Group;};
     setState(() {});
   }
 
@@ -28,20 +30,62 @@ class _GroupListState extends State<GroupList> {
           child: FutureBuilder(
               future: groupListController.getData(widget.raidId),
               builder: (context, snapshot) {
-                if (snapshot.data != null && this.myGuestFC.runtimeType == "String".runtimeType) {
+                print("caralh");
+                print(snapshot);
+
+
+                if (snapshot.data != null ) {
+                  var group = snapshot.data as Group;
                   //nome do pokemon, foto, 
-                  final list = snapshot.data as List;
-                  return ListView.builder(
-                      itemCount: list.length,
-                      shrinkWrap: true,
-                      itemBuilder: (_, index) {
-                        return PokeCard(list[index], int.parse(this.myGuestFC));
-                      });
+                  return Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Text(group.raidPokemon.number)
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Text(group.hostFC)
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Text(group.guestFC1)
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Text(group.guestFC2)
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Text(group.guestFC3)
+                          ],
+                        ),
+                      ),
+                    ],
+                  );
                 } else {
                   return Text("Carregando...");
                 }
               }),
-        ),
+        );
     
     /*
     ListView.separated(

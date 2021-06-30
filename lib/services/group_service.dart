@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:ultimate_raid_finderzz_app/models/Group.dart';
 import '../resources/enviroment_urls.dart';
 class GroupService {
   static Future getGroupList () async {
@@ -13,8 +14,8 @@ class GroupService {
     var res = await http.post(url, );
     return res;
   }
-  static Future getRaid(id) async {
-    var url = Uri.parse(EnviromentURLs.baseUrl + EnviromentURLs.groupUrl  + id.toString());
+   Future getRaid(id) async {
+    var url = Uri.parse(EnviromentURLs.baseUrl + EnviromentURLs.groupUrl + id.toString());
     print(url);
     var res = await http.get(url);
     return res;
