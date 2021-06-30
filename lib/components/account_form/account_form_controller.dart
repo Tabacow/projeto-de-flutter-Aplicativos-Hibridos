@@ -9,6 +9,14 @@ class AccountFormPageController {
     var fcController = await getFCFromSharedPref();
     return fcController;
   }
+  Future<String> getFCFromSharedPref() async {
+    final prefs = await SharedPreferences.getInstance();
+    final getFC = prefs.getString("friendCode");
+    if (getFC == null){
+      return "";
+    }
+    return getFC;
+  }
 
   Future<String> getNomeFromSharedPref() async {
     final prefs = await SharedPreferences.getInstance();
@@ -18,14 +26,7 @@ class AccountFormPageController {
     }
     return getNome;
   }
-  Future<String> getFCFromSharedPref() async {
-    final prefs = await SharedPreferences.getInstance();
-    final getFC = prefs.getString("friendCode");
-    if (getFC == null){
-      return "";
-    }
-    return getFC;
-  }
+
   setValuesOnPref(nomeController, fcController) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString("nome", nomeController);

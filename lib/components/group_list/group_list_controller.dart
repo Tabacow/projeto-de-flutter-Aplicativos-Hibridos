@@ -19,8 +19,7 @@ class GroupListController {
   Future getData(id) async {
     var raid = await groupService.getRaid(id);
     var jsonData = jsonDecode(raid.body);
-    print(jsonData);
-    var group = new Group(jsonData["id"], jsonData["pokemon"]["name"], jsonData["hostFC"], jsonData["guestFC1"], jsonData["guestFC2"], jsonData["guestFC3"]);
+    var group = new Group(jsonData["id"], jsonData["pokemon"]["name"], jsonData["pokemon"]["type1"], jsonData["pokemon"]["type2"], jsonData["pokemon"]["number"], jsonData["hostFC"], jsonData["guestFC1"], jsonData["guestFC2"], jsonData["guestFC3"]);
     return group;
   }
 }

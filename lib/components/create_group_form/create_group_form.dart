@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ultimate_raid_finderzz_app/components/poke_list/poke_list.dart';
-import 'package:ultimate_raid_finderzz_app/pages/main_page/main_page.dart';
-import 'package:ultimate_raid_finderzz_app/services/group_service.dart';
+import 'package:ultimate_raid_finderzz_app/pages/group_page/group_page.dart';
 import './create_group_controller.dart';
+import 'dart:async';
 
 /// This is the stateful widget that the main application instantiates.
 class CreateGroupForm extends StatefulWidget {
@@ -26,11 +25,24 @@ class _CreateGroupForm extends State<CreateGroupForm> {
     super.initState();
     loadData();
     this.pokeOptions = createGroupController.getData();
+    Timer.periodic(Duration(seconds: 5), (timer) {
+      this.pokeOptions = createGroupController.getData();
+    });
     setState(() {});
   }
 
   Future<void> loadData() async {
     this.hostFC = await createGroupController.getFCFromSharedPref();
+  }
+
+  Future<void> redirectToCreatedGroup (list,index) async {
+    createGroupController.createRaid(this.hostFC, list[index].pokeNumber).then((res){
+      Navigator.pop(context);
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => GroupPage(res.body)),
+      );
+    });
   }
 
   @override
@@ -52,13 +64,7 @@ class _CreateGroupForm extends State<CreateGroupForm> {
                           leading: Image.network("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+list[index].pokeNumber.toString()+".png"),
                           title: Text(list[index].pokeName),
                           onTap: (){
-                            createGroupController.createRaid(this.hostFC, list[index].pokeNumber );
-                            Navigator.pop(context);
-                            Navigator.pop(context);
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => MainPage()),
-                            );
+                            redirectToCreatedGroup (list, index);
                           },
                         );
                       });

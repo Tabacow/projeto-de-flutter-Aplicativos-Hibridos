@@ -32,20 +32,56 @@ class _GroupListState extends State<GroupList> {
           child: FutureBuilder(
               future: groupListController.getData(widget.raidId),
               builder: (context, snapshot) {
-                print("caralh");
-                print(snapshot);
-
-
                 if (snapshot.data != null ) {
                   var group = snapshot.data as Group;
-                  print("snapshot.data");
                   return Column(
                     children: [
                       Padding(
                         padding: EdgeInsets.all(8.0),
                         child: Row(
                           children: [
+                            Text("ID da sala: "),
                             Text(group.id.toString()),
+
+                          ],
+                        ),
+                      ),
+                      Padding(padding: EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Spacer(),
+                            Image.network("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + group.pokemonId.toString() + ".png", scale: 0.3,),
+                            Spacer()
+                          ],
+                        ),
+                      ),
+                      Padding(padding: EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Spacer(),
+                            Text(group.pokemonName),
+                            Spacer()
+                          ],
+                        ),
+                      ),
+                      Padding(padding: EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Spacer(),
+                            Column(
+                              children: [
+                                Text("Tipo 1: " + group.pokemonType1),
+
+                              ],
+                            ),
+                            Spacer(),
+                            Column(
+                              children: [
+                                Text(((){return group.pokemonType2 != "None" ? "Tipo 2: " + group.pokemonType2 : "";})()),
+
+                              ],
+                            ),
+                            Spacer()
                           ],
                         ),
                       ),
@@ -53,7 +89,15 @@ class _GroupListState extends State<GroupList> {
                         padding: EdgeInsets.all(8.0),
                         child: Row(
                           children: [
-                            Text(group.hostFC.toString())
+                              Text("Jogador 1: "),
+                              Text((() {
+                                if(group.hostFC != null){
+                                   return group.hostFC.toString();
+                                }
+                                else {
+                                  return "Esperando...";
+                                }
+                              })())
                           ],
                         ),
                       ),
@@ -61,7 +105,15 @@ class _GroupListState extends State<GroupList> {
                         padding: EdgeInsets.all(8.0),
                         child: Row(
                           children: [
-                            Text(group.guestFC1.toString())
+                            Text("Jogador 2: "),
+                            Text((() {
+                              if(group.guestFC1 != null){
+                                return group.guestFC1.toString();
+                              }
+                              else {
+                                return "Esperando...";
+                              }
+                            })())
                           ],
                         ),
                       ),
@@ -69,7 +121,17 @@ class _GroupListState extends State<GroupList> {
                         padding: EdgeInsets.all(8.0),
                         child: Row(
                           children: [
-                            Text(group.guestFC2.toString())
+                            Text("Jogador 3: "),
+
+                            Text((() {
+                              if(group.guestFC2 != null){
+                                return group.guestFC2.toString();
+                              }
+                              else {
+                                return "Esperando...";
+                              }
+                            })())
+
                           ],
                         ),
                       ),
@@ -77,7 +139,15 @@ class _GroupListState extends State<GroupList> {
                         padding: EdgeInsets.all(8.0),
                         child: Row(
                           children: [
-                            Text(group.guestFC3.toString())
+                            Text("Jogador 4: "),
+                            Text((() {
+                              if(group.guestFC3 != null){
+                                return group.guestFC3.toString();
+                              }
+                              else {
+                                return "Esperando...";
+                              }
+                            })())
                           ],
                         ),
                       ),

@@ -1,11 +1,13 @@
 import 'package:ultimate_raid_finderzz_app/services/group_service.dart';
-
 import '../../services/pokemon_service.dart';
 import '../../models/Pokemon.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
+
 class CreateGroupController {
+
+
 
   final groupService = new GroupService();
 
@@ -18,8 +20,8 @@ class CreateGroupController {
     return int.parse(getFC);
   }
 
-  createRaid(hostFC, pokeNumber) {
-    groupService.createRaid(hostFC, pokeNumber );
+  Future createRaid(hostFC, pokeNumber) {
+    return groupService.createRaid(hostFC, pokeNumber );
   }
 
   getData() async {
