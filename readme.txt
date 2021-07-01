@@ -15,4 +15,7 @@ Estrutura de Pastas:
     models : aqui serão armazenados os modelos
 
 !!!IMPORTANTE!!!
-    substitua o valor do baseUrl em enviroment_urls
+    substitua o valor do baseUrl em enviroment_urls caso o localhost não funcione
+    
+Repositório do back-end: https://github.com/marcelloscatenajr/poke_raid_app_microsservices
+Vídeo de apresentação: https://www.youtube.com/watch?v=EY9vn2g01_M&lc=UgwoRpQDAEWHWOTctX94AaABAg
